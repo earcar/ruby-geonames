@@ -216,6 +216,28 @@ module Geonames
 
     end
 
+    def WebService.hierarchy(geoname_id, username)
+      places = Array.new
+
+      url = "/hierarchy?a=a"
+
+      url = url + "&geonameId=" + geoname_id.to_s
+      url = url + "&username=" + username.to_s
+
+      res = make_request(url)
+
+      doc = REXML::Document.new res.body
+
+      doc.elements.each("geonames/geoname") do |element|
+
+        places << WebService::element_to_toponym( element )
+
+      end
+
+      return places
+
+    end
+
     def WebService.find_nearest_intersection( lat, long )
 
       url = "/findNearestIntersection?a=a"
