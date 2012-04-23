@@ -194,13 +194,14 @@ module Geonames
 
     end
 
-    def WebService.find_nearby_place_name( lat, long )
+    def WebService.find_nearby_place_name( lat, long, username = nil )
       places = Array.new
 
       url = "/findNearbyPlaceName?a=a"
 
       url = url + "&lat=" + lat.to_s
       url = url + "&lng=" + long.to_s
+      url = url + "&username=" + username.to_s if username
 
       res = make_request(url)
 
